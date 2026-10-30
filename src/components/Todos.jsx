@@ -2,6 +2,7 @@ import { useState } from 'react'
 function Todos() {
      const [text, setText] = useState('')
    const [todos, setTodos] = useState([])
+        const activeCount = todos.filter((todo) => !todo.completed).length
 
         function handleSubmit(e) {
     e.preventDefault()
