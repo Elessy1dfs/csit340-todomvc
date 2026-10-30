@@ -4,7 +4,12 @@ function Todos() {
    const [todos, setTodos] = useState([])
         const activeCount = todos.filter((todo) => !todo.completed).length
         const hasCompleted = todos.some((todo) => todo.completed)
-        
+        const allCompleted = todos.length > 0 && todos.every((todo) => todo.completed)
+
+        function handleToggleAll() {
+    const newState = !allCompleted
+    setTodos(todos.map((todo) => ({ ...todo, completed: newState })))
+  }
         function handleSubmit(e) {
     e.preventDefault()
     const trimmed = text.trim()
@@ -45,6 +50,21 @@ function Todos() {
           <>
 
             <main className="relative border-t border-[#e6e6e6]">
+                <input
+                id="toggle-all"
+                type="checkbox"
+                checked={allCompleted}
+                onChange={handleToggleAll}
+                className="peer sr-only"
+              />
+              <label
+                htmlFor="toggle-all"
+                className={`absolute -top-[66px] left-0 flex h-[65px] w-[60px] cursor-pointer items-center justify-center text-[22px] ${
+                  allCompleted ? 'text-[#484848]' : 'text-[#949494]'
+                }`}
+              >
+                <span className="rotate-90">❯</span>
+              </label>
           <input id="toggle-all" type="checkbox" className="peer sr-only" />
           <label
             htmlFor="toggle-all"
