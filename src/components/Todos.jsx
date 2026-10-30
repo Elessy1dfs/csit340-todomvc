@@ -3,7 +3,8 @@ function Todos() {
      const [text, setText] = useState('')
    const [todos, setTodos] = useState([])
         const activeCount = todos.filter((todo) => !todo.completed).length
-
+        const hasCompleted = todos.some((todo) => todo.completed)
+        
         function handleSubmit(e) {
     e.preventDefault()
     const trimmed = text.trim()
@@ -116,9 +117,15 @@ function Todos() {
               </button>
             </li>
           </ul>
-          <button type="button" className="cursor-pointer justify-self-end hover:underline">
-            Clear completed
-          </button>
+          {hasCompleted && (
+                <button
+                  type="button"
+                  onClick={handleClearCompleted}
+                  className="cursor-pointer justify-self-end hover:underline"
+                >
+                  Clear completed
+                </button>
+              )}
         </footer>
           </>
         )}
